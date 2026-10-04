@@ -1,0 +1,1375 @@
+/*
+ * DevFest Santo Domingo 2026 theme
+ * Source: https://design-systems.venture.do/devfest-santo-domingo/DESIGN.md
+ *
+ * This file is intentionally loaded after the scene styles. It translates the
+ * existing interactive deck into the event system without coupling the scene
+ * components to a second set of presentational class names.
+ */
+
+:root {
+  --df-off-white: #f0f0f0;
+  --df-surface: #ffffff;
+  --df-ink: #1e1e1e;
+  --df-muted: #3c4043;
+  --df-blue: #4285f4;
+  --df-green: #34a853;
+  --df-yellow: #f9ab00;
+  --df-red: #ea4335;
+  --df-blue-pastel: #c3ecf6;
+  --df-green-pastel: #ccf6c5;
+  --df-yellow-pastel: #ffe7a5;
+  --df-red-pastel: #f8d8d8;
+  --background: var(--df-off-white);
+  --foreground: var(--df-ink);
+  --muted: var(--df-muted);
+  --accent: var(--df-blue);
+  --accent-bright: var(--df-blue);
+  --stage-border: var(--df-ink);
+  --font-geist-sans: var(--font-google-sans);
+  --font-geist-mono: var(--font-roboto-mono);
+  --df-space-card: clamp(0.8rem, 0.95cqw, 1.2rem);
+  --df-space-group: clamp(1rem, 1.25cqw, 1.55rem);
+  --df-gap-card: clamp(0.65rem, 0.8cqw, 1rem);
+  --df-type-caption: clamp(0.76rem, 0.82cqw, 0.98rem);
+  --df-type-body: clamp(0.84rem, 0.86cqw, 1.08rem);
+  --df-type-card: clamp(0.92rem, 0.96cqw, 1.2rem);
+}
+
+body {
+  color: var(--df-ink);
+  font-family: var(--font-google-sans), Arial, Helvetica, sans-serif;
+  background: #d7d7d7;
+}
+
+.presentation-viewport {
+  background: #d7d7d7;
+}
+
+.presentation-stage {
+  color: var(--df-ink);
+  background: var(--df-off-white);
+  border: 2px solid var(--df-ink);
+  box-shadow: none;
+}
+
+.presentation-stage::before,
+.presentation-ambient {
+  display: none;
+}
+
+.presentation-stage *,
+.presentation-stage *::before,
+.presentation-stage *::after,
+.presenter-private-viewport *,
+.presenter-private-viewport *::before,
+.presenter-private-viewport *::after {
+  background-image: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+.presentation-stage :where(h1, h2, h3, h4, h5, h6) {
+  color: var(--df-ink) !important;
+  font-family: var(--font-google-sans), Arial, Helvetica, sans-serif !important;
+  font-weight: 700 !important;
+}
+
+.presentation-stage :where(p, li, dt, dd, label, blockquote, small, strong, b, em, code, pre, span) {
+  color: var(--df-ink) !important;
+}
+
+.presentation-stage :where(button, input, textarea, select) {
+  font: inherit;
+}
+
+/* Presentation chrome */
+
+.presentation-chrome {
+  color: var(--df-ink);
+  font-family: var(--font-roboto-mono), monospace;
+  font-weight: 400;
+  letter-spacing: 0.11em;
+}
+
+.presentation-chrome-top > span:first-child {
+  color: var(--df-blue) !important;
+  font-weight: 700;
+}
+
+.presentation-chrome-rule {
+  height: 2px;
+  background: var(--df-red);
+}
+
+.presentation-controls {
+  padding: 0.3cqw;
+  background: var(--df-surface);
+  border: 2px solid var(--df-ink);
+  border-radius: 999px;
+  opacity: 0.72;
+  backdrop-filter: none;
+}
+
+.presentation-controls button,
+.overview-header button {
+  color: var(--df-ink);
+  background: transparent;
+}
+
+.presentation-controls button:hover,
+.presentation-controls button:focus-visible,
+.overview-header button:hover,
+.overview-header button:focus-visible {
+  color: var(--df-ink);
+  background: var(--df-blue-pastel);
+}
+
+.presentation-controls button[data-active="true"] {
+  color: var(--df-ink);
+  background: var(--df-yellow-pastel);
+}
+
+.presentation-controls-divider {
+  width: 2px;
+  background: var(--df-ink);
+}
+
+.presentation-progress-layer {
+  bottom: 6.5cqh;
+}
+
+.progress-track {
+  height: 4px;
+  background: var(--df-surface);
+  border: 1px solid var(--df-ink);
+  border-radius: 999px;
+}
+
+.progress-track span {
+  background: var(--df-blue);
+}
+
+.progress-count,
+.progress-count strong {
+  color: var(--df-ink);
+  font-family: var(--font-roboto-mono), monospace;
+}
+
+/* Shared slide language */
+
+.scene,
+.section-scene,
+.opening-hold-screen {
+  color: var(--df-ink);
+  background: var(--df-off-white);
+}
+
+.section-scene::before {
+  height: 2px;
+  background: var(--df-blue);
+}
+
+.section-scene-header p,
+.scene-eyebrow,
+.opening-eyebrow {
+  color: var(--df-ink) !important;
+  font-family: var(--font-roboto-mono), monospace;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+}
+
+.section-scene-header p span {
+  color: var(--df-ink) !important;
+  font-family: var(--font-roboto-mono), monospace;
+  font-weight: 300;
+  background: var(--df-yellow-pastel);
+  border: 2px solid var(--df-ink);
+}
+
+.section-scene-header h1 {
+  max-width: 78cqw;
+  color: var(--df-ink) !important;
+  font-size: clamp(1.95rem, 3.7cqw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.scene-keyline,
+.scene-keyline strong,
+.definition-footnotes,
+.comparison-caveat,
+.context-caveat,
+.decision-caveat,
+.routing-note,
+.memory-keyline,
+.fit-disclaimer {
+  color: var(--df-muted) !important;
+}
+
+.scene-keyline strong {
+  color: var(--df-ink) !important;
+}
+
+.scene-eyebrow::before {
+  background: var(--df-red);
+  border: 1px solid var(--df-ink);
+}
+
+.scene-title,
+.scene-description {
+  color: var(--df-ink) !important;
+}
+
+.scene-orbit,
+.scene-orbit::before,
+.scene-orbit::after {
+  border: 2px solid var(--df-ink);
+}
+
+.scene-orbit::after {
+  background: var(--df-blue-pastel) !important;
+}
+
+.scene-orbit span:nth-child(1),
+.scene-signal span:nth-child(1) { background: var(--df-blue); }
+.scene-orbit span:nth-child(2),
+.scene-signal span:nth-child(2) { background: var(--df-red); }
+.scene-orbit span:nth-child(3),
+.scene-signal span:nth-child(3) { background: var(--df-yellow); }
+.scene-signal span:nth-child(4) { background: var(--df-green); }
+
+/* Flat outlined cards: the core DevFest component language. */
+
+.section-scene article,
+.section-scene [class$="-card"],
+.section-scene [class$="-panel"],
+.architecture-lane,
+.hardware-option,
+.local-formula > span,
+.local-formula strong,
+.hybrid-system,
+.hybrid-benefits,
+.question-contrast,
+.question-sequence,
+.ai-platform-shell,
+.learned-values,
+.fixed-weights-block,
+.token-example,
+.token-vision-demo,
+.parameter-concept,
+.parameter-scale,
+.model-file-visual,
+.memory-stage,
+.memory-size-example,
+.context-growth,
+.context-concurrency,
+.memory-pool,
+.separate-memory-mini,
+.resource-reframe,
+.apple-silicon-diagram,
+.quantization-definition,
+.quantization-models,
+.quantization-tradeoff,
+.fit-equation,
+.fit-speed-strip,
+.runtime-responsibilities,
+.runtime-not-equivalent,
+.open-weight-definition,
+.model-lifecycle-flow,
+.lifecycle-cold-start,
+.runtime-facts,
+.terminal-window,
+.api-pipeline,
+.api-consumers,
+.lab-device-card,
+.lab-model-panel,
+.lab-prompt-panel,
+.lab-metrics-panel,
+.cloud-route-panel,
+.cloud-chat-panel,
+.cloud-metrics-panel,
+.decision-question,
+.routing-source,
+.routing-router,
+.privacy-local-path,
+.privacy-warning,
+.homelab-capabilities,
+.homelab-evolution,
+.operation-core,
+.operation-layers,
+.infrastructure-costs,
+.token-economics,
+.final-request,
+.final-router,
+.final-home-lab,
+.final-cloud,
+.comparison-table {
+  color: var(--df-ink) !important;
+  background: var(--df-surface) !important;
+  border: 2px solid var(--df-ink) !important;
+  border-radius: 1.1cqw !important;
+}
+
+.section-scene :where(button, input, textarea, select) {
+  color: var(--df-ink) !important;
+  background: var(--df-surface) !important;
+  border-color: var(--df-ink) !important;
+}
+
+.section-scene button:not(:disabled):hover,
+.section-scene button:not(:disabled):focus-visible {
+  color: var(--df-ink) !important;
+  background: var(--df-yellow-pastel) !important;
+  outline: 2px solid var(--df-ink) !important;
+  outline-offset: 2px;
+}
+
+.section-scene :where(input, textarea):focus-visible {
+  outline: 3px solid var(--df-blue);
+  outline-offset: -3px;
+}
+
+.section-scene :where(svg) {
+  stroke-width: 1.8;
+}
+
+.section-scene :where(small, dt, dd, label) {
+  font-size: max(0.52cqw, 0.56rem);
+}
+
+.section-scene :where(article, div)[data-tone="cyan"],
+.model-type-card[data-tone="cyan"],
+.model-use-card[data-tone="cyan"],
+.task-case[data-tone="cyan"] {
+  color: var(--df-blue) !important;
+  background: var(--df-blue-pastel) !important;
+  border-color: var(--df-ink) !important;
+}
+
+.section-scene :where(article, div)[data-tone="violet"],
+.model-type-card[data-tone="violet"],
+.model-use-card[data-tone="violet"],
+.task-case[data-tone="violet"] {
+  color: var(--df-red) !important;
+  background: var(--df-red-pastel) !important;
+  border-color: var(--df-ink) !important;
+}
+
+.section-scene :where(article, div)[data-tone="gold"],
+.model-type-card[data-tone="gold"],
+.model-use-card[data-tone="gold"],
+.task-case[data-tone="gold"] {
+  color: var(--df-yellow) !important;
+  background: var(--df-yellow-pastel) !important;
+  border-color: var(--df-ink) !important;
+}
+
+.section-scene :where(article, div)[data-tone="green"] {
+  color: var(--df-green) !important;
+  background: var(--df-green-pastel) !important;
+  border-color: var(--df-ink) !important;
+}
+
+.section-scene :where(article, div)[data-tone="muted"] {
+  color: var(--df-muted) !important;
+  background: var(--df-surface) !important;
+  border-color: var(--df-ink) !important;
+}
+
+.section-scene [data-tone] :where(svg, .model-acronym, .task-case-number),
+.section-scene article[data-tone] > svg {
+  color: currentColor !important;
+}
+
+/* Slide 15: quantization needs an explicit visual scale after gradients are removed. */
+
+.quantization-definition {
+  padding-left: 1cqw;
+  background: transparent !important;
+  border: 0 !important;
+  border-left: 6px solid var(--df-blue) !important;
+  border-radius: 0 !important;
+}
+
+.quantization-models,
+.quantization-tradeoff {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.quantization-models article {
+  background: var(--df-surface) !important;
+  border: 2px solid var(--df-ink) !important;
+}
+
+.quantization-models article > i {
+  color: var(--df-ink) !important;
+  font-style: normal;
+  border: 2px solid var(--df-ink);
+  overflow: hidden;
+}
+
+.quantization-models article > i[data-tone="red"] { background: #ff7daf !important; }
+.quantization-models article > i[data-tone="yellow"] { background: #ffd427 !important; }
+.quantization-models article > i[data-tone="green"] { background: #5cdb6d !important; }
+
+.quantization-models article > i b,
+.quantization-models article > i svg {
+  color: var(--df-ink) !important;
+}
+
+.quantization-models article > small {
+  padding: 0.28cqw 0.45cqw;
+  color: var(--df-ink) !important;
+  text-align: center;
+  border: 1px solid var(--df-ink);
+  border-radius: 999px;
+}
+
+.quantization-models article:nth-child(1) > small { background: var(--df-red-pastel); }
+.quantization-models article:nth-child(2) > small { background: var(--df-yellow-pastel); }
+.quantization-models article:nth-child(3) > small { background: var(--df-green-pastel); }
+
+.quantization-arrow svg:first-child { color: var(--df-blue); }
+.quantization-arrow span { color: var(--df-ink) !important; }
+
+.quantization-memory {
+  color: var(--df-ink);
+  background: var(--df-surface) !important;
+  border: 2px solid var(--df-ink) !important;
+  border-radius: 1.1cqw;
+}
+
+.quantization-memory > span { color: var(--df-muted) !important; }
+.quantization-memory-total,
+.quantization-memory-result,
+.quantization-memory > small { color: var(--df-ink) !important; }
+
+.memory-capacity {
+  background: var(--df-off-white) !important;
+  border: 2px solid var(--df-ink) !important;
+}
+
+.memory-capacity i {
+  background: var(--df-surface) !important;
+  border: 1px solid var(--df-ink);
+}
+
+.memory-capacity i[data-used] { background: #5cdb6d !important; }
+
+.quantization-tradeoff > div {
+  color: var(--df-ink);
+  border: 2px solid var(--df-ink);
+}
+
+.quantization-gain { background: var(--df-green-pastel); }
+.quantization-cost { background: var(--df-yellow-pastel); }
+.quantization-gain > svg { color: var(--df-green); }
+.quantization-cost > svg { color: var(--df-red); }
+.quantization-tradeoff :where(span, strong) { color: var(--df-ink) !important; }
+.quantization-footnote { color: var(--df-muted) !important; }
+
+/* Local/cloud semantic colors */
+
+.architecture-cloud,
+.cloud-benefits,
+.cloud-route-panel,
+.final-cloud,
+.routing-destinations article[data-route="cloud"] {
+  background: var(--df-blue-pastel) !important;
+}
+
+.architecture-local,
+.local-benefits,
+.privacy-local-path,
+.final-home-lab,
+.routing-destinations article[data-route="slm"] {
+  background: var(--df-green-pastel) !important;
+}
+
+.routing-router,
+.final-router,
+.cost-reframe,
+.comparison-caveat,
+.decision-question {
+  background: var(--df-yellow-pastel) !important;
+}
+
+.privacy-warning,
+.lab-error,
+.cloud-error {
+  color: var(--df-ink) !important;
+  background: var(--df-red-pastel) !important;
+  border-color: var(--df-ink) !important;
+}
+
+.presentation-stage .section-scene .frontier-arrival {
+  color: var(--df-ink) !important;
+  background: var(--df-green-pastel) !important;
+  border: 2px solid var(--df-ink) !important;
+}
+
+.presentation-stage .section-scene .frontier-arrival svg {
+  color: var(--df-green) !important;
+}
+
+.architecture-cloud { border-left: 0.38cqw solid var(--df-blue) !important; }
+.architecture-local { border-left: 0.38cqw solid var(--df-green) !important; }
+
+.architecture-label > svg,
+.architecture-local .architecture-label > svg,
+.hardware-option svg,
+.local-formula svg,
+.definition-footnotes span::before {
+  color: var(--df-blue) !important;
+}
+
+.architecture-local .architecture-label > svg,
+.architecture-local .flow-node[data-emphasis="true"] svg {
+  color: var(--df-green) !important;
+}
+
+.flow-node svg,
+.speaker-photo-tech svg {
+  color: var(--df-ink) !important;
+  background: var(--df-surface) !important;
+  border: 2px solid var(--df-ink) !important;
+}
+
+.flow-node[data-emphasis="true"] svg {
+  color: var(--df-blue) !important;
+  background: var(--df-blue-pastel) !important;
+}
+
+.flow-arrow,
+.task-arrow,
+.quantization-arrow,
+.token-prediction-arrow,
+.s2-connector {
+  color: var(--df-ink) !important;
+}
+
+.local-definition,
+.local-definition strong {
+  color: var(--df-ink) !important;
+}
+
+.local-definition strong {
+  text-decoration-color: var(--df-blue);
+}
+
+.token-source {
+  color: var(--df-blue) !important;
+  font-weight: 700;
+}
+
+/* Opening and speaker introduction */
+
+.opening-hold-screen {
+  border: 0;
+}
+
+.opening-devfest-brand {
+  position: absolute;
+  z-index: 5;
+  top: 10.5cqh;
+  left: 8cqw;
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+}
+
+.opening-devfest-brand img {
+  width: 3.8cqw;
+  height: auto;
+}
+
+.opening-devfest-brand span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12cqh;
+}
+
+.opening-devfest-brand strong {
+  font-size: clamp(0.72rem, 0.86cqw, 1.05rem);
+  line-height: 1;
+}
+
+.opening-devfest-brand small {
+  color: var(--df-muted) !important;
+  font-family: var(--font-roboto-mono), monospace;
+  font-size: clamp(0.45rem, 0.5cqw, 0.62rem);
+  letter-spacing: 0.06em;
+}
+
+.opening-track-badge {
+  position: absolute;
+  z-index: 5;
+  top: 10.2cqh;
+  right: 8cqw;
+  display: flex;
+  align-items: center;
+  gap: 0.75cqw;
+  padding: 0.5cqw 0.75cqw;
+  background: var(--df-blue-pastel);
+  border: 2px solid var(--df-ink);
+  border-radius: 999px;
+}
+
+.opening-track-badge span,
+.opening-track-badge b {
+  font-size: clamp(0.65rem, 0.78cqw, 0.95rem);
+  font-weight: 700;
+}
+
+.opening-track-badge small {
+  padding: 0.24cqw 0.55cqw;
+  font-family: var(--font-roboto-mono), monospace;
+  font-size: clamp(0.42rem, 0.47cqw, 0.58rem);
+  background: var(--df-surface);
+  border: 1px solid var(--df-ink);
+  border-radius: 999px;
+}
+
+.opening-title-block {
+  width: 76cqw;
+}
+
+.opening-title-block h1 {
+  color: var(--df-ink) !important;
+  font-size: clamp(3rem, 6.15cqw, 7.45rem);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+}
+
+.opening-title-block h1 em {
+  color: var(--df-blue) !important;
+  font-style: normal;
+  text-decoration: underline;
+  text-decoration-color: var(--df-yellow);
+  text-decoration-thickness: 0.09em;
+  text-underline-offset: 0.08em;
+}
+
+.opening-title-block p {
+  color: var(--df-muted) !important;
+}
+
+.opening-speaker-line {
+  padding: 0.48cqw 0.75cqw;
+  color: var(--df-surface) !important;
+  background: var(--df-ink);
+  border: 2px solid var(--df-ink);
+  border-radius: 999px;
+}
+
+.opening-speaker-line :where(span, strong) {
+  color: var(--df-surface) !important;
+}
+
+.opening-speaker-line i {
+  background: var(--df-yellow);
+  border: 1px solid var(--df-surface);
+}
+
+.opening-waiting,
+.opening-begin-hint,
+.opening-location-rail {
+  color: var(--df-muted) !important;
+}
+
+.opening-waiting i { background: var(--df-green); border: 1px solid var(--df-ink); }
+.opening-location-rail { top: 20cqh; }
+.opening-location-rail svg { color: var(--df-ink); }
+.opening-location-rail b { height: 2px; background: var(--df-blue); }
+.opening-network { opacity: 0.5; }
+.opening-network i { border: 1px solid var(--df-ink); }
+.opening-network i:nth-child(4n + 1) { background: var(--df-blue); }
+.opening-network i:nth-child(4n + 2) { background: var(--df-red); }
+.opening-network i:nth-child(4n + 3) { background: var(--df-yellow); }
+.opening-network i:nth-child(4n) { background: var(--df-green); }
+.opening-network span { height: 2px; background: var(--df-ink); opacity: 0.16; }
+
+.speaker-photo {
+  background: var(--df-blue-pastel) !important;
+  border: 2px solid var(--df-ink) !important;
+  border-radius: 1.1cqw;
+}
+
+.speaker-photo-placeholder { background: var(--df-blue-pastel) !important; }
+.speaker-name > span { color: var(--df-blue) !important; }
+.speaker-highlights article:nth-child(1) { background: var(--df-blue-pastel) !important; }
+.speaker-highlights article:nth-child(2) { background: var(--df-green-pastel) !important; }
+.speaker-highlights article:nth-child(3) { background: var(--df-yellow-pastel) !important; }
+.speaker-highlights article span { color: var(--df-ink) !important; }
+.speaker-profile blockquote { border-left: 5px solid var(--df-red); }
+.speaker-socials > span { background: var(--df-surface) !important; border: 2px solid var(--df-ink) !important; }
+.speaker-socials svg { color: var(--df-blue); }
+
+/* Interactive demos */
+
+.lab-demo-topline,
+.cloud-demo-topline,
+.lab-mode-badge,
+.cloud-mode-badge,
+.lab-run-status,
+.cloud-run-status,
+.demo-mode-badge {
+  font-family: var(--font-roboto-mono), monospace;
+}
+
+.lab-mode-badge,
+.cloud-mode-badge,
+.lab-run-status,
+.cloud-run-status,
+.demo-mode-badge {
+  color: var(--df-ink) !important;
+  background: var(--df-green-pastel) !important;
+  border: 2px solid var(--df-ink) !important;
+}
+
+.lab-mode-badge[data-mode="demo"],
+.cloud-mode-badge[data-mode="demo"],
+.demo-mode-badge {
+  background: var(--df-yellow-pastel) !important;
+}
+
+.lab-run-status[data-status="connecting"],
+.lab-run-status[data-status="generating"],
+.lab-run-status[data-status="loading-model"],
+.cloud-run-status[data-status="connecting"],
+.cloud-run-status[data-status="generating"] {
+  background: var(--df-blue-pastel) !important;
+}
+
+.lab-run-status[data-status="error"],
+.cloud-run-status[data-status="error"] {
+  background: var(--df-red-pastel) !important;
+}
+
+.lab-preflight,
+.cloud-preflight-strip {
+  background: var(--df-surface) !important;
+  border: 2px solid var(--df-ink) !important;
+}
+
+.lab-prompt-panel textarea,
+.cloud-chat-panel textarea,
+.lab-output,
+.cloud-output,
+.terminal-body {
+  color: var(--df-ink) !important;
+  background: var(--df-off-white) !important;
+}
+
+.lab-output-validation[data-valid="true"],
+.model-load-state[data-ready="true"],
+.preflight-checks p[data-ready="true"],
+.cloud-preflight-strip span[data-ready="true"] {
+  color: var(--df-ink) !important;
+  background: var(--df-green-pastel) !important;
+}
+
+.switch-demo-button,
+.task-action,
+.api-final-reveal,
+.decision-question button {
+  color: var(--df-surface) !important;
+  background: var(--df-ink) !important;
+  border: 2px solid var(--df-ink) !important;
+}
+
+.switch-demo-button :where(span, strong, b),
+.task-action :where(span, strong, b),
+.api-final-reveal :where(span, strong, b),
+.decision-question button :where(span, strong, b) {
+  color: var(--df-surface) !important;
+}
+
+.presentation-stage .section-scene .api-final-reveal p {
+  color: var(--df-surface) !important;
+  font-size: var(--df-type-body) !important;
+}
+
+/* Overview */
+
+.overview-screen {
+  background: var(--df-off-white);
+  backdrop-filter: none;
+}
+
+.overview-header p { color: var(--df-blue) !important; }
+.overview-header h2 { color: var(--df-ink) !important; }
+.overview-header button { border: 2px solid var(--df-ink); background: var(--df-surface); }
+
+.overview-card {
+  color: var(--df-ink);
+  background: var(--df-surface);
+  border: 2px solid var(--df-ink);
+  border-radius: 1cqw;
+}
+
+.overview-card:hover,
+.overview-card:focus-visible { background: var(--df-blue-pastel); border-color: var(--df-ink); }
+.overview-card[data-active="true"] { background: var(--df-yellow-pastel); border-color: var(--df-ink); }
+.overview-card-number { color: var(--df-blue) !important; }
+.overview-card strong { color: var(--df-ink) !important; }
+.overview-card > span:last-child,
+.overview-help { color: var(--df-muted) !important; }
+
+/* Embedded and private presenter views */
+
+.presenter-panel {
+  color: var(--df-ink);
+  background: var(--df-surface);
+  border: 2px solid var(--df-ink);
+  border-radius: 1.2cqw;
+  backdrop-filter: none;
+}
+
+.presenter-panel :where(h2, h3, p, span, strong, li, footer) { color: var(--df-ink) !important; }
+.presenter-panel-header p { color: var(--df-blue) !important; }
+.presenter-timer,
+.presenter-next { background: var(--df-off-white); border: 2px solid var(--df-ink); }
+.presenter-panel-header button,
+.presenter-reset { color: var(--df-ink); background: var(--df-surface); border: 2px solid var(--df-ink); }
+.presenter-notes li::before { color: var(--df-ink); background: var(--df-yellow-pastel); border: 1px solid var(--df-ink); }
+
+.presenter-private-viewport {
+  color: var(--df-ink);
+  background: var(--df-off-white);
+}
+
+.presenter-private-header { border-bottom: 2px solid var(--df-ink); }
+.presenter-private-mark {
+  color: var(--df-ink);
+  font-family: var(--font-roboto-mono), monospace;
+  background: var(--df-blue-pastel);
+  border: 2px solid var(--df-ink);
+}
+
+.presenter-private-brand :where(strong, span),
+.presenter-private-status > span,
+.presenter-private-section-heading,
+.presenter-private-footer,
+.presenter-private-viewport :where(h1, h2, h3, p, li, dt, dd, small, strong, span) {
+  color: var(--df-ink) !important;
+}
+
+.presenter-private-status button,
+.presenter-private-timer button,
+.presenter-private-notes,
+.presenter-private-timer,
+.presenter-private-brief,
+.presenter-private-guidance,
+.presenter-demo-ops,
+.presenter-private-next,
+.presenter-private-map {
+  color: var(--df-ink);
+  background: var(--df-surface);
+  border: 2px solid var(--df-ink);
+}
+
+.presenter-private-preview {
+  background: var(--df-off-white);
+  border: 2px solid var(--df-ink);
+}
+
+.presenter-private-notes li { color: var(--df-ink); background: var(--df-off-white); border: 1px solid var(--df-ink); }
+.presenter-private-notes li::before { color: var(--df-ink); background: var(--df-yellow-pastel); border: 1px solid var(--df-ink); }
+.presenter-private-section-heading strong i { color: var(--df-ink); background: var(--df-yellow-pastel); border: 1px solid var(--df-ink); }
+.presenter-private-status i { background: var(--df-red); }
+.presenter-private-status > span[data-connected="true"] i { background: var(--df-green); }
+
+/* Keep the private presenter console dark so every control and note remains
+ * readable in the auditorium. The audience preview keeps its own slide theme. */
+.presenter-private-viewport {
+  color: #fff;
+  background: #0b0b0c;
+}
+
+.presenter-private-header { border-bottom-color: rgb(255 255 255 / 22%); }
+
+.presenter-private-mark {
+  color: #fff;
+  background: var(--df-blue);
+  border-color: #fff;
+}
+
+.presenter-private-status button,
+.presenter-private-timer button,
+.presenter-private-notes,
+.presenter-private-timer,
+.presenter-private-brief,
+.presenter-private-guidance,
+.presenter-demo-ops,
+.presenter-private-next,
+.presenter-private-map {
+  color: #fff;
+  background: #171719;
+  border-color: rgb(255 255 255 / 24%);
+}
+
+.presenter-private-header :where(h1, h2, h3, p, li, dt, dd, small, strong, span, button, label, code, i),
+.presenter-private-primary > .presenter-private-section-heading :where(h1, h2, h3, p, li, dt, dd, small, strong, span, button, label, code, i),
+.presenter-private-notes :where(h1, h2, h3, p, li, dt, dd, small, strong, span, button, label, code, i),
+.presenter-private-sidebar :where(h1, h2, h3, p, li, dt, dd, small, strong, span, button, label, code, i),
+.presenter-private-footer :where(h1, h2, h3, p, li, dt, dd, small, strong, span, button, label, code, i) {
+  color: #fff !important;
+}
+
+.presenter-private-status > span { color: #fff !important; }
+
+.presenter-private-notes li {
+  color: #fff;
+  background: #202024;
+  border-color: rgb(255 255 255 / 24%);
+}
+
+.presenter-private-notes li::before,
+.presenter-private-section-heading strong i {
+  color: #fff;
+  background: var(--df-blue);
+  border-color: #fff;
+}
+
+/* A few statement slides use a single pastel ground, per the DevFest template. */
+
+.presentation-stage[data-scene-id="05-right-model-for-task"] .section-scene,
+.presentation-stage[data-scene-id="35-infinite-tokens"] .section-scene {
+  background: var(--df-yellow-pastel);
+}
+
+.presentation-stage[data-scene-id="39-closing-message"] .section-scene {
+  background: var(--df-blue-pastel);
+}
+
+.presentation-stage[data-scene-id="40-thank-you-questions"] .section-scene {
+  background: var(--df-green-pastel);
+}
+
+/*
+ * Auditorium legibility pass
+ *
+ * A frame is used only when it communicates a semantic group. Layout-only
+ * wrappers stay transparent; semantic groups use a pastel surface and real
+ * inset spacing so their white child cards remain visually distinct.
+ */
+
+.presentation-stage .section-scene :where(
+  .parameter-concept,
+  .fit-equation,
+  .model-lifecycle-flow,
+  .api-pipeline,
+  .homelab-evolution,
+  .operation-layers,
+  .token-economics,
+  .question-sequence,
+  .infrastructure-costs,
+  .memory-tower
+) {
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.presentation-stage .section-scene :where(
+  .architecture-lane,
+  .parameter-scale,
+  .memory-stage,
+  .context-growth,
+  .lab-preflight,
+  .ai-platform-shell,
+  .comparison-table
+) {
+  gap: var(--df-gap-card);
+  padding: var(--df-space-group) !important;
+  border: 2px solid var(--df-ink) !important;
+  border-radius: 1.1cqw !important;
+}
+
+.presentation-stage .section-scene .architecture-cloud,
+.presentation-stage .section-scene .context-growth,
+.presentation-stage .section-scene .parameter-scale,
+.presentation-stage .section-scene .lab-preflight,
+.presentation-stage .section-scene .ai-platform-shell,
+.presentation-stage .section-scene .comparison-table {
+  background: var(--df-blue-pastel) !important;
+}
+
+/* Slide 12: make the KV-cache growth rows readable after gradients are removed. */
+
+.presentation-stage .section-scene .context-growth > header {
+  min-height: 6.5cqh;
+  margin-bottom: 1.2cqh;
+  padding-bottom: 1cqh;
+  border-bottom: 2px solid var(--df-ink);
+}
+
+.presentation-stage .section-scene .context-growth > header svg {
+  width: 2.2cqw;
+  height: 2.2cqw;
+  color: var(--df-blue) !important;
+}
+
+.presentation-stage .section-scene .context-growth > header strong {
+  font-size: var(--df-type-card) !important;
+}
+
+.presentation-stage .section-scene .context-growth > article {
+  min-height: 7.7cqh;
+  grid-template-columns: 4.5cqw minmax(0, 1fr) 12cqw;
+  gap: 1cqw;
+  margin-top: 0.8cqh;
+  padding: 0.7cqw 0.9cqw !important;
+}
+
+.presentation-stage .section-scene .context-growth > article b {
+  font-size: var(--df-type-card) !important;
+}
+
+.presentation-stage .section-scene .context-growth > article i {
+  display: block;
+  min-width: 2.2cqw;
+  height: 1.35cqw;
+  background: var(--df-blue) !important;
+  border: 2px solid var(--df-ink);
+  border-radius: 999px;
+}
+
+.presentation-stage .section-scene .context-growth > article span {
+  font-size: var(--df-type-body) !important;
+  font-weight: 650;
+  text-align: right;
+}
+
+.presentation-stage .section-scene .context-concurrency {
+  padding: 0.75cqw 1.1cqw;
+  font-size: var(--df-type-caption) !important;
+  background: var(--df-yellow-pastel) !important;
+  border: 2px solid var(--df-ink) !important;
+}
+
+/* Slide 20: separate the runtime cards from their containing frame. */
+
+.presentation-stage .section-scene .runtime-facts {
+  gap: var(--df-gap-card);
+  padding: var(--df-space-group) !important;
+  background: var(--df-surface) !important;
+  border: 2px solid var(--df-ink) !important;
+  border-radius: 1.1cqw !important;
+}
+
+.presentation-stage .section-scene .runtime-facts > article {
+  min-height: 35cqh;
+}
+
+.presentation-stage .section-scene .runtime-facts > code {
+  display: flex;
+  min-height: 6cqh;
+  align-items: center;
+  padding: 0.75cqw 1cqw;
+  color: var(--df-surface) !important;
+  font-size: var(--df-type-card) !important;
+  background: var(--df-ink) !important;
+  border: 2px solid var(--df-ink) !important;
+  border-radius: 0.55cqw;
+}
+
+.presentation-stage .section-scene .runtime-facts > code span {
+  color: var(--df-surface) !important;
+  font-size: inherit !important;
+}
+
+.presentation-stage .section-scene .architecture-local,
+.presentation-stage .section-scene .memory-compute-stage {
+  background: var(--df-green-pastel) !important;
+}
+
+.presentation-stage .section-scene .memory-storage-stage {
+  background: var(--df-yellow-pastel) !important;
+}
+
+.presentation-stage .section-scene .memory-loaded-stage {
+  background: var(--df-blue-pastel) !important;
+}
+
+.presentation-stage .section-scene .parameter-scale > span,
+.presentation-stage .section-scene .memory-stage > :where(.model-file-visual, .memory-size-example),
+.presentation-stage .section-scene .context-growth > article,
+.presentation-stage .section-scene .ai-platform-shell > article {
+  background: var(--df-surface) !important;
+  border: 2px solid var(--df-ink) !important;
+  border-radius: 0.75cqw !important;
+}
+
+.presentation-stage .section-scene .memory-stage > :where(.model-file-visual, .memory-size-example) {
+  padding: var(--df-space-card) !important;
+}
+
+.presentation-stage .section-scene .lab-preflight {
+  grid-template-columns: minmax(0, 1fr) 27cqw;
+}
+
+.presentation-stage .section-scene .lab-device-card,
+.presentation-stage .section-scene .preflight-checks {
+  min-height: 12cqh;
+  padding: var(--df-space-card) !important;
+  background: var(--df-surface) !important;
+  border: 2px solid var(--df-ink) !important;
+}
+
+.presentation-stage .section-scene .lab-model-cards > article[data-category="slm"],
+.presentation-stage .section-scene .lab-model-panel[data-category="slm"] {
+  background: var(--df-blue-pastel) !important;
+}
+
+.presentation-stage .section-scene .lab-model-cards > article[data-category="llm"],
+.presentation-stage .section-scene .lab-model-panel[data-category="llm"] {
+  background: var(--df-red-pastel) !important;
+}
+
+.presentation-stage .section-scene .lab-metrics-panel,
+.presentation-stage .section-scene .cloud-metrics-panel {
+  background: var(--df-yellow-pastel) !important;
+}
+
+.presentation-stage .section-scene :where(.lab-metrics-grid > div, .cloud-metrics-panel > div),
+.presentation-stage .section-scene .comparison-row {
+  background: var(--df-surface) !important;
+  border-color: var(--df-ink) !important;
+}
+
+.presentation-stage .section-scene :where(.lab-prompt-panel, .cloud-chat-panel) > footer {
+  padding: var(--df-space-card);
+  background: var(--df-blue-pastel) !important;
+  border-top: 2px solid var(--df-ink);
+}
+
+.presentation-stage .section-scene .comparison-table {
+  width: 55cqw;
+}
+
+.presentation-stage .section-scene .comparison-row {
+  min-height: 5.2cqh;
+  padding-inline: 0.75cqw;
+  border-bottom: 1px solid var(--df-ink);
+}
+
+/* Projected type: metadata is readable, body copy is comfortably scannable. */
+
+.presentation-stage .section-scene-header p,
+.presentation-stage .section-scene-header p span {
+  font-size: var(--df-type-caption) !important;
+  line-height: 1.15;
+}
+
+.presentation-stage .section-scene :where(small, dt, dd, label) {
+  font-size: var(--df-type-caption) !important;
+  line-height: 1.25;
+}
+
+.presentation-stage .section-scene :where(button) {
+  min-height: 3.9cqh;
+  padding: 0.55cqw 0.75cqw;
+  font-size: var(--df-type-caption) !important;
+  line-height: 1.15;
+}
+
+.presentation-stage .section-scene :where(textarea, input, select, pre) {
+  font-size: var(--df-type-body) !important;
+}
+
+.presentation-stage .section-scene article :where(span, b),
+.presentation-stage .section-scene article > header span,
+.presentation-stage .section-scene article :where(dt, small) {
+  font-size: var(--df-type-caption) !important;
+  line-height: 1.2;
+}
+
+.presentation-stage .section-scene :where(
+  [class$="-card"],
+  [class$="-panel"],
+  [class$="-badge"],
+  [class$="-status"]
+) :where(span, b),
+.presentation-stage .section-scene :where(
+  [class$="-badge"],
+  [class$="-status"]
+) {
+  font-size: var(--df-type-caption) !important;
+  line-height: 1.2;
+}
+
+.presentation-stage .section-scene article :where(p, li, dd) {
+  font-size: var(--df-type-body) !important;
+  line-height: 1.35;
+}
+
+.presentation-stage .section-scene :where(
+  .speaker-profile blockquote,
+  .speaker-socials strong,
+  .model-axis-copy span,
+  .model-axis-scale b,
+  .task-case-number,
+  .task-badges span,
+  .hybrid-destinations b,
+  .inference-flow-fragment article span,
+  .token-vision-topline,
+  .token-vision-legend,
+  .billions-definition,
+  .model-work-scope span,
+  .fit-factor-fragment article span,
+  .fit-speed-strip span,
+  .fit-speed-strip b,
+  .software-layer-fragment article > span,
+  .runtime-facts article > div span,
+  .terminal-meta dt,
+  .api-pipeline span,
+  .comparison-row > b,
+  .comparison-row > strong,
+  .comparison-traits span,
+  .comparison-caveat,
+  .capability-ladder article > span,
+  .frontier-arrival span,
+  .frontier-arrival small,
+  .cloud-mode-badge,
+  .cloud-run-status,
+  .decision-caveat,
+  .privacy-local-path span,
+  .privacy-warning,
+  .local-compute-limits,
+  .final-architecture-caption span
+) {
+  font-size: var(--df-type-caption) !important;
+  line-height: 1.25;
+}
+
+.presentation-stage .section-scene :where(
+  .model-axis-note,
+  .right-model-thesis,
+  .hybrid-close,
+  .billions-definition,
+  .model-work-scope p,
+  .fit-disclaimer,
+  .quantization-footnote,
+  .open-weight-definition p,
+  .api-consumers,
+  .comparison-caveat,
+  .decision-caveat,
+  .privacy-warning
+) {
+  font-size: var(--df-type-body) !important;
+  line-height: 1.35;
+}
+
+.presentation-stage .section-scene :where(
+  .architecture-label span,
+  .flow-node span,
+  .parameter-concept span,
+  .memory-stage-label,
+  .memory-stage > small,
+  .context-growth span,
+  .lifecycle-fragment article > span,
+  .lifecycle-fragment article small,
+  .lifecycle-runtime-rule span,
+  .runtime-responsibilities,
+  .lab-heading > span,
+  .lab-device-card span,
+  .preflight-checks,
+  .lab-model-panel > span,
+  .lab-prompt-panel header,
+  .lab-output > span,
+  .lab-metrics-panel > span,
+  .lab-metrics-grid span,
+  .comparison-row > span,
+  .comparison-traits span,
+  .cloud-preflight-strip,
+  .cloud-chat-panel header,
+  .cloud-output > span,
+  .cloud-metrics-panel > span,
+  .decision-question span,
+  .homelab-evolution-step span,
+  .homelab-capabilities span,
+  .ai-platform-edge span,
+  .ai-platform-shell article span,
+  .ai-platform-thesis span,
+  .operation-core span,
+  .operation-consumers span,
+  .operation-layers article > span,
+  .operation-layers small,
+  .token-economics article > div span,
+  .token-economics article > div b,
+  .economics-switch span,
+  .infrastructure-costs,
+  .workload-axis-labels span,
+  .workload-grid article > div span,
+  .final-request span,
+  .final-router > span,
+  .final-router small,
+  .final-home-lab article span,
+  .final-cloud span,
+  .final-cloud small,
+  .question-sequence article > span,
+  .question-sequence small,
+  .problem-first-flow span,
+  .question-contrast
+) {
+  font-size: var(--df-type-caption) !important;
+  line-height: 1.25;
+}
+
+.presentation-stage .section-scene :where(
+  .speaker-highlights p,
+  .parameter-concept > div,
+  .parameter-truths p,
+  .memory-stage > p,
+  .context-caveat,
+  .vram-behavior article span,
+  .unified-warning,
+  .runtime-responsibilities,
+  .runtime-not-equivalent,
+  .lifecycle-cold-start,
+  .lab-device-card strong,
+  .preflight-checks p,
+  .lab-model-panel dd,
+  .comparison-verdict p,
+  .decision-grid article > p,
+  .privacy-warning,
+  .operation-rule,
+  .infinite-tokens-scene > p,
+  .workload-grid p,
+  .workload-verdict,
+  .final-architecture-caption,
+  .question-contrast p
+) {
+  font-size: var(--df-type-body) !important;
+  line-height: 1.35;
+}
+
+.presentation-stage .section-scene :where(
+  .model-work-fragment article strong,
+  .lifecycle-fragment article strong,
+  .lifecycle-runtime-rule article strong,
+  .lab-model-cards article strong,
+  .operation-core strong,
+  .operation-consumers strong,
+  .operation-layers strong,
+  .question-sequence strong,
+  .final-request strong,
+  .final-home-lab article strong
+) {
+  font-size: var(--df-type-card) !important;
+  line-height: 1.15;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opening-network *,
+  .opening-waiting i {
+    animation: none !important;
+  }
+}

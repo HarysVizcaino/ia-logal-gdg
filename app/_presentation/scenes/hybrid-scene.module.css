@@ -1,0 +1,264 @@
+/* Scoped to slide 06, including its preview in the presenter console. */
+.scene.scene {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding-bottom: 10.8cqh;
+}
+
+.scene.scene .intro {
+  margin: 1.8cqh 0 0;
+  font-size: 1.5cqw !important;
+  line-height: 1.35;
+}
+
+.flow {
+  display: grid;
+  flex: 1;
+  min-height: 0;
+  grid-template-columns: 17cqw 4cqw 22cqw 6cqw minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 1.8cqh 0.8cqw;
+  align-items: center;
+  margin: 3.6cqh 0 2.8cqh;
+}
+
+.scene.scene .flow > h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.55cqw;
+  margin: 0;
+  font-size: 1.15cqw !important;
+  line-height: 1.25;
+}
+
+.scene.scene .flow > h2 > span {
+  font-family: var(--font-roboto-mono), monospace;
+  font-size: 0.94cqw !important;
+  font-weight: 400;
+}
+
+.requestHeading { grid-column: 1; }
+.decisionHeading { grid-column: 3; }
+.destinationHeading { grid-column: 5; }
+
+.request {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+.request > svg {
+  width: 3.8cqw;
+  height: 3.8cqw;
+  margin-bottom: 1.5cqh;
+  color: var(--df-ink);
+  stroke-width: 1.7;
+}
+
+.scene.scene .request blockquote {
+  margin: 0;
+  font-size: 2.1cqw !important;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.scene.scene .request p {
+  margin: 1.8cqh 0 0;
+  font-size: 1.15cqw !important;
+}
+
+.incomingArrow {
+  grid-row: 2;
+  grid-column: 2;
+  width: 100%;
+  height: 3cqw;
+  color: var(--df-ink);
+  stroke-width: 2;
+}
+
+.decision {
+  display: flex;
+  grid-row: 2;
+  grid-column: 3;
+  flex-direction: column;
+  padding: 2cqw 1.7cqw;
+  background: var(--df-yellow-pastel);
+  border: 2px solid var(--df-ink);
+  border-radius: 1.1cqw;
+}
+
+.decision > svg {
+  width: 2.5cqw;
+  height: 2.5cqw;
+  margin-bottom: 1.5cqh;
+  color: var(--df-ink);
+}
+
+.scene.scene .decision > strong {
+  font-size: 1.8cqw !important;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.decision ul {
+  display: grid;
+  gap: 1cqh;
+  margin: 2.2cqh 0;
+  padding-left: 1.1cqw;
+}
+
+.scene.scene .decision li {
+  font-size: 1.18cqw !important;
+  line-height: 1.3;
+}
+
+.scene.scene .decision > p {
+  margin: 0;
+  padding-top: 1.5cqh;
+  font-size: 1.02cqw !important;
+  line-height: 1.3;
+  border-top: 1px solid var(--df-ink);
+}
+
+/* The trunk joins both arrows so the routing decision is visually explicit. */
+.branch {
+  position: relative;
+  display: flex;
+  grid-row: 2;
+  grid-column: 4;
+  height: calc(50% + 0.6cqh);
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.branch::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 28%;
+  width: 2px;
+  content: "";
+  background: var(--df-ink);
+}
+
+.branch::after {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 28%;
+  height: 2px;
+  content: "";
+  background: var(--df-ink);
+}
+
+.branch > i {
+  position: absolute;
+  right: 0;
+  width: 72%;
+  height: 2px;
+  background: var(--df-ink);
+}
+
+.branch > i::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 0.65cqw;
+  height: 0.65cqw;
+  content: "";
+  border-top: 2px solid var(--df-ink);
+  border-right: 2px solid var(--df-ink);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.branch > i:first-child { top: 0; }
+.branch > i:last-child { bottom: 0; }
+
+.destinations {
+  display: grid;
+  height: 100%;
+  min-height: 0;
+  grid-row: 2;
+  grid-column: 5;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 1.2cqh;
+}
+
+.scene.scene .destinations > article {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.25cqw 1.5cqw !important;
+  border: 2px solid var(--df-ink) !important;
+  border-radius: 1.1cqw !important;
+}
+
+.scene.scene .local { background: var(--df-green-pastel) !important; }
+.scene.scene .cloud { background: var(--df-blue-pastel) !important; }
+
+.destinations header {
+  display: flex;
+  align-items: center;
+  gap: 0.65cqw;
+  margin-bottom: 1cqh;
+}
+
+.destinations header > svg {
+  width: 2cqw;
+  height: 2cqw;
+  color: var(--df-ink);
+  stroke-width: 1.8;
+}
+
+.scene.scene .destinations h3 {
+  margin: 0;
+  font-size: 1.8cqw !important;
+  line-height: 1.1;
+}
+
+.scene.scene .destinations header > span {
+  margin-left: auto;
+  font-size: 1.02cqw !important;
+  line-height: 1.25;
+}
+
+.scene.scene .example {
+  margin: 0;
+  font-size: 1.58cqw !important;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.scene.scene .model {
+  margin: 0.6cqh 0 0;
+  font-size: 1.15cqw !important;
+  line-height: 1.3;
+}
+
+.scene.scene .benefit {
+  margin: 1.2cqh 0 0;
+  padding-top: 1cqh;
+  font-size: 1.02cqw !important;
+  line-height: 1.25;
+  border-top: 1px solid var(--df-ink);
+}
+
+.takeaway {
+  flex-shrink: 0;
+  padding-top: 1.7cqh;
+  border-top: 2px solid var(--df-ink);
+}
+
+.scene.scene .takeaway strong {
+  font-size: 1.8cqw !important;
+  line-height: 1.25;
+}
+
+.scene.scene .takeaway p {
+  margin: 0.8cqh 0 0;
+  font-size: 1.1cqw !important;
+  line-height: 1.3;
+}
