@@ -1065,9 +1065,10 @@ export const scenes = [
       script: [
         "Gracias por acompañarme.",
         "Abrimos el espacio para preguntas.",
+        "Pueden escanear el QR para conectar conmigo en Instagram: @harysvizcaino.",
       ],
       keyMessage: "El modelo correcto, en el lugar correcto, para el problema correcto.",
-      avoid: ["No añadir nuevas redes, enlaces ni información técnica durante preguntas."],
+      avoid: ["No añadir información técnica nueva; mantener visibles el QR y los datos de contacto durante las preguntas."],
       transition: "Fin de la presentación.",
     },
     component: ThankYouQuestionsScene,

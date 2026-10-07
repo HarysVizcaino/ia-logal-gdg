@@ -1,15 +1,37 @@
 export const dynamic = "force-dynamic";
 
 const provider = process.env.FRONTIER_PROVIDER?.trim() ?? "";
+const providerId = provider.toLowerCase();
 const configuredModel = process.env.FRONTIER_MODEL?.trim() ?? "";
 const providerLabel = process.env.FRONTIER_LABEL?.trim() || "Frontier model";
+const providerDefaults = {
+  openai: { baseUrl: "https://api.openai.com/v1", apiKey: process.env.OPENAI_API_KEY?.trim() },
+  deepseek: { baseUrl: "https://api.deepseek.com", apiKey: process.env.DEEPSEEK_API_KEY?.trim() },
+};
+const defaults = providerDefaults[providerId as keyof typeof providerDefaults];
 const apiKey = process.env.FRONTIER_API_KEY?.trim() ||
-  (provider.toLowerCase() === "openai" ? process.env.OPENAI_API_KEY?.trim() : "") ||
+  defaults?.apiKey ||
   "";
-const defaultBaseUrl = provider.toLowerCase() === "openai" ? "https://api.openai.com/v1" : "";
-const baseUrl = (process.env.FRONTIER_BASE_URL?.trim() || defaultBaseUrl).replace(/\/$/, "");
-const inputCostPerMillion = Number(process.env.FRONTIER_INPUT_COST_PER_1M);
-const outputCostPerMillion = Number(process.env.FRONTIER_OUTPUT_COST_PER_1M);
+const baseUrl = (process.env.FRONTIER_BASE_URL?.trim() || defaults?.baseUrl || "").replace(/\/$/, "");
+const inputCostPerMillion = optionalPrice(process.env.FRONTIER_INPUT_COST_PER_1M);
+const outputCostPerMillion = optionalPrice(process.env.FRONTIER_OUTPUT_COST_PER_1M);
+
+function optionalPrice(value?: string) {
+  return value?.trim() ? Number(value) : Number.NaN;
+}
+
+// Use safe messages instead of exposing provider response bodies or credentials.
+async function providerError(response: Response) {
+  const payload = await response.json().catch(() => null);
+  const code = payload?.error?.code;
+  const type = payload?.error?.type;
+  if (response.status === 401 || response.status === 403) return "CLOUD CREDENTIALS REJECTED";
+  if (response.status === 402 || code === "credit_balance_exhausted" || code === "insufficient_quota" || type === "insufficient_quota") return "CLOUD BALANCE EXHAUSTED · Recarga el saldo de la API del proveedor";
+  if (response.status === 429) return "CLOUD RATE LIMIT · Espera unos segundos y vuelve a intentar";
+  if (response.status === 404 || code === "model_not_found") return "CLOUD MODEL UNAVAILABLE · Revisa el modelo configurado";
+  if (response.status === 400 || response.status === 422) return "CLOUD REQUEST REJECTED · Revisa los parámetros del modelo";
+  return "CLOUD PROVIDER UNAVAILABLE · Vuelve a intentar más tarde";
+}
 
 interface CloudMessage {
   readonly role: "system" | "user" | "assistant";
@@ -97,9 +119,18 @@ export async function GET() {
         status: "unavailable",
         internet: true,
         providerReady: false,
-        error: response.status === 401 || response.status === 403
-          ? "CLOUD CREDENTIALS REJECTED"
-          : "CLOUD PROVIDER UNAVAILABLE",
+        error: await providerError(response),
+      });
+    }
+
+    const models = await response.json() as { data?: { id?: string }[] };
+    if (!models.data?.some((model) => model.id === configuredModel)) {
+      return Response.json({
+        ...base,
+        status: "unavailable",
+        internet: true,
+        providerReady: false,
+        error: "CLOUD MODEL UNAVAILABLE · Revisa el modelo configurado",
       });
     }
 
@@ -169,7 +200,7 @@ export async function POST(request: Request) {
 
   if (!upstream.ok || !upstream.body) {
     return Response.json(
-      { error: upstream.status === 401 || upstream.status === 403 ? "CLOUD CREDENTIALS REJECTED" : "CLOUD INFERENCE FAILED" },
+      { error: upstream.ok ? "CLOUD INFERENCE FAILED" : await providerError(upstream) },
       { status: 502 },
     );
   }

@@ -31,6 +31,7 @@ import {
   frontierIncidentPrompt,
 } from "../cloud-demo/cloud-demo-config";
 import { useCloudDemo } from "../cloud-demo/cloud-demo-context";
+import { CloudStreamingOutput } from "../cloud-demo/cloud-streaming-output";
 import type { CloudDemoMode, CloudRunStatus } from "../cloud-demo/types";
 import { SceneHeader } from "./section-one-scenes";
 
@@ -133,7 +134,7 @@ export function FrontierCloudDemoScene() {
         <div className="cloud-chat-panel">
           <header><span>Prompt frontier</span><b>{preflight.config.model || "Modelo sin configurar"}</b></header>
           <textarea value={prompt} onChange={(event) => setPrompt(event.target.value)} aria-label="Prompt para Frontier Model" />
-          <div className="cloud-output"><span>Salida en streaming</span><pre>{run?.output || "La respuesta aparecerá aquí…"}{run?.status === "generating" ? <i /> : null}</pre></div>
+          <CloudStreamingOutput output={run?.output ?? ""} generating={run?.status === "generating"} />
           {run?.error ? <p className="cloud-error"><CircleAlert aria-hidden />{run.error}</p> : null}
           <footer>
             <button type="button" disabled={isRunning} onClick={() => void runFrontier(prompt)}><Play aria-hidden /> Ejecutar frontier</button>

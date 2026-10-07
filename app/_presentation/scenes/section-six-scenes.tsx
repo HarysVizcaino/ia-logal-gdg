@@ -24,8 +24,11 @@ import {
   Wrench,
   Zap,
 } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 
+import { presentationConfig } from "../presentation-config";
 import { SceneHeader } from "./section-one-scenes";
+import closingStyles from "./thank-you-scene.module.css";
 
 const homeLabCapabilities = ["24/7", "Modelos", "Agentes", "Automatización", "APIs", "Datos privados", "Experimentación"] as const;
 
@@ -213,11 +216,26 @@ export function ClosingMessageScene() {
 }
 
 export function ThankYouQuestionsScene() {
+  const { speaker } = presentationConfig;
+  const instagramUrl = `https://www.instagram.com/${speaker.instagram.replace(/^@/, "")}/`;
+
   return (
-    <section className="scene section-scene thank-you-scene">
-      <div className="thank-you-title"><span>IA Local · Home Labs · Tokens “Infinitos”</span><h1>Gracias</h1><strong>¿Preguntas?</strong></div>
-      <div className="speaker-card"><div><span>Speaker</span><strong>Harys Vizcaino</strong><small>Ingeniero en software</small></div><div><span>Conecta</span><strong>@harysvizcaino</strong></div></div>
-      <div className="final-thesis"><span>La idea para llevarte</span><strong>El modelo correcto, en el lugar correcto, para el problema correcto.</strong></div>
+    <section className={`scene section-scene ${closingStyles.scene}`}>
+      <div className={closingStyles.main}>
+        <div className={closingStyles.message}>
+          <p>IA Local, Home Labs<br />y Tokens “Infinitos”</p>
+          <h1>Gracias</h1>
+          <strong>¿Preguntas?</strong>
+        </div>
+        <a className={closingStyles.qr} href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label={`Abrir Instagram de ${speaker.name}`}>
+          <QRCodeSVG value={instagramUrl} size={512} level="M" marginSize={4} bgColor="#ffffff" fgColor="#000000" title={`QR de Instagram: ${speaker.instagram}`} role="img" />
+          <span>Escanea y conectemos</span>
+        </a>
+      </div>
+      <div className={closingStyles.footer}>
+        <div><span>Speaker</span><strong>{speaker.name}</strong><p>{speaker.role}</p></div>
+        <div><span>Conecta</span><a href={instagramUrl} target="_blank" rel="noopener noreferrer">{speaker.instagram}<ArrowRight aria-hidden /></a><p>Instagram</p></div>
+      </div>
     </section>
   );
 }
